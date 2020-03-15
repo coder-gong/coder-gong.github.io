@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://coder-gong.github.io</id>
     <title>Blog for Gong</title>
-    <updated>2020-03-15T10:33:53.281Z</updated>
+    <updated>2020-03-15T10:36:52.330Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://coder-gong.github.io"/>
     <link rel="self" href="https://coder-gong.github.io/atom.xml"/>
@@ -16,10 +16,13 @@
         <link href="https://coder-gong.github.io/post/easymock-ben-di-bu-shu-win-and-linux/">
         </link>
         <updated>2020-03-15T09:54:05.000Z</updated>
-        <content type="html"><![CDATA[<p>请自行了解Mock.js，点击跳步<a href="http://mockjs.com/"> Mockjs官网了解详情<a><br>
+        <summary type="html"><![CDATA[<p>简单来说就是在前后端分离项目中使前端可以脱离后端数据，制造假数据的方法。前端注重交互，后端注重开发API接口及业务逻辑...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>简单来说就是在前后端分离项目中使前端可以脱离后端数据，制造假数据的方法。前端注重交互，后端注重开发API接口及业务逻辑...</p>
+<!-- more -->
+<p>请自行了解Mock.js，点击跳步<a href="http://mockjs.com/"> Mockjs官网了解详情<a><br>
 大致功能如下<br>
 <img src="http://39.105.81.40/wordpress/wp-content/uploads/2020/02/mockjs.png"></p>
-<p>简单来说就是在前后端分离项目中使前端可以脱离后端数据，制造假数据的方法。前端注重交互，后端注重开发API接口及业务逻辑。</p>
 <blockquote>
 <p>可以随机生成数据，拦截ajax请求。Easy Mock 是一个可视化，并且能快速生成模拟数据的持久化服务</p>
 </blockquote>
