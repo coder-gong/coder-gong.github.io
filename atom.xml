@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://coder-gong.github.io</id>
     <title>Blog for Gong</title>
-    <updated>2020-03-15T11:31:30.492Z</updated>
+    <updated>2020-03-15T11:53:00.357Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://coder-gong.github.io"/>
     <link rel="self" href="https://coder-gong.github.io/atom.xml"/>
@@ -10,6 +10,127 @@
     <logo>https://coder-gong.github.io/images/avatar.png</logo>
     <icon>https://coder-gong.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Blog for Gong</rights>
+    <entry>
+        <title type="html"><![CDATA[PHP安装教程（Cent OS7）]]></title>
+        <id>https://coder-gong.github.io/post/php-an-zhuang-jiao-cheng-cent-os7/</id>
+        <link href="https://coder-gong.github.io/post/php-an-zhuang-jiao-cheng-cent-os7/">
+        </link>
+        <updated>2020-03-15T11:33:54.000Z</updated>
+        <summary type="html"><![CDATA[<p>这篇文章主要介绍了CentOs7搭建PHP环境 ，有着一定的参考价值，现在分享给大家，有需要的朋友可以参考一下</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>这篇文章主要介绍了CentOs7搭建PHP环境 ，有着一定的参考价值，现在分享给大家，有需要的朋友可以参考一下</p>
+<!-- more -->
+<blockquote>
+<p>reboot 重启虚拟机</p>
+</blockquote>
+<p>安装所有编译工具 gcc</p>
+<blockquote>
+<p>yum groupinstall &quot;Development Tools&quot; &quot;Server Platform Development&quot; -y</p>
+</blockquote>
+<p>Yum添加 Epel源</p>
+<blockquote>
+<p>wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpmrpm -ivh epel-release-latest-7.noarch.rpmyum repolist      ##检查是否已添加至源列表</p>
+</blockquote>
+<p>安装Nginx</p>
+<blockquote>
+<p>yum -y install nginx   使用yum安装<br>
+nginxsystemctl start nginx  启动nginx，浏览器输入ip就可以看到nginx的欢迎页</p>
+</blockquote>
+<p>修改Nginx配置文件以支持PHP解析</p>
+<p>nginx配置文件默认放在/etc/nginx/nginx.confvi /etc/nginx/nginx.conf在server区间里加入以下内容</p>
+<blockquote>
+<p>#注释掉本来的这两行<br>
+#location / {<br>
+#}<br>
+location / {<br>
+root   /usr/share/nginx/html;<br>
+index  index.php index.html index.htm;<br>
+}<br>
+location ~ .php$ {<br>
+root           html;<br>
+fastcgi_pass   127.0.0.1:9000;<br>
+fastcgi_index  index.php;<br>
+fastcgi_param  SCRIPT_FILENAME  /usr/share/nginx/html$fastcgi_script_name;<br>
+include        fastcgi_params;<br>
+}</p>
+</blockquote>
+<blockquote>
+<p>systemctl restart nginx #重启nginx<br>
+安装PHP<br>
+检查当前安装的PHP包<br>
+yum list installed | grep php</p>
+</blockquote>
+<p>如果有安装的PHP包，先删除他们<br>
+(这条命令看情况执行看清楚你安装的包用yum remove删除)</p>
+<blockquote>
+<p>yum remove php.x86_64 php-cli.x86_64 php-common.x86_64 php-gd.x86_64 php-ldap.x86_64 php-mbstring.x86_64 php-mcrypt.x86_643</p>
+</blockquote>
+<p>添加PHP的yum源<br>
+Centos 5.X</p>
+<blockquote>
+<p>rpm -Uvh http://mirror.webtatic.com/yum/el5/latest.rpmCentOs 6.x<br>
+rpm -Uvh http://mirror.webtatic.com/yum/el6/latest.rpm</p>
+</blockquote>
+<p>CentOs 7.X</p>
+<blockquote>
+<p>rpm -Uvh https://mirror.webtatic.com/yum/el7/epel-release.rpmrpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</p>
+</blockquote>
+<p>或者使用wget</p>
+<blockquote>
+<p>wget https://mirror.webtatic.com/yum/el7/epel-release.rpmrpm -ivh epel-release.rpm</p>
+</blockquote>
+<p>如果想删除上面安装的Yum源包，重新安装</p>
+<blockquote>
+<p>rpm -qa | grep webstatic<br>
+rpm -e  上面搜索到的包即可</p>
+</blockquote>
+<p>选择要安装什么版本的PHP<br>
+PHP7</p>
+<blockquote>
+<p>yum install php70w.x86_64 php70w-cli.x86_64 php70w-common.x86_64 php70w-gd.x86_64 php70w-ldap.x86_64 php70w-mbstring.x86_64 php70w-mcrypt.x86_64 php 70w-mysql.x86_64 php70w-pdo.x86_64</p>
+</blockquote>
+<p>安装PHP-FPM</p>
+<blockquote>
+<p>yum install php70w-fpm #7.0+<br>
+yum install php55w-fpm #5.5<br>
+yum install php56w-fpm #5.6</p>
+</blockquote>
+<p>启动php-fpm</p>
+<blockquote>
+<p>systemctl start php-fpm</p>
+</blockquote>
+<p>配置php.ini</p>
+<blockquote>
+<p>vi /etc/php.ini</p>
+</blockquote>
+<p>按下esc进入命令模式，输入:/cgi.fix_pathinfo,按n 进行下一个查找，找到指定cgi.fix_pathinfo, 修改为=0；</p>
+<p>安装Mysql 这里直接安装MySQL</p>
+<blockquote>
+<p>yum –y install mysql<br>
+yum –y install mysql-devel<br>
+#添加官方mysql-server的yum源<br>
+wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</p>
+</blockquote>
+<p>安装源</p>
+<blockquote>
+<p>rpm -ivh mysql-community-release-el7-5.noarch.rpm<br>
+#安装mysql-server<br>
+yum install mysql-community-server</p>
+</blockquote>
+<p>启动mysql</p>
+<blockquote>
+<p>systemctl restart mysqld</p>
+</blockquote>
+<p>开放80和3306端口</p>
+<blockquote>
+<p>firewall-cmd --zone=public --add-port=80/tcp --permanentfirewall-cmd --zone=public --add-port=3306/tcp --permanent #centos 7</p>
+</blockquote>
+<p>重新加载防火墙</p>
+<blockquote>
+<p>firewall-cmd --reload</p>
+</blockquote>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[MYSQL ：Failed to start mysqld.service: Unit not found]]></title>
         <id>https://coder-gong.github.io/post/mysql-failed-to-start-mysqldservice-unit-not-found/</id>
